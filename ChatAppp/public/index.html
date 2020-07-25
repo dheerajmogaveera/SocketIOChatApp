@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <title>Login Page</title>
+        <style>
+            a{
+                color: black;
+                font-family: monospace
+            }
+            #login-container
+            {
+                display: flex;
+                background-color:white;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                border: 1px solid black;
+                width:800px;
+                height:500px;
+               
+                
+            }
+            body{
+                display: flex;
+                margin: auto;
+                width:800px;
+                height:600px;
+                background-image:linear-gradient(to right,pink,purple,lavender);
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+               
+            }
+            .login-input{
+                width:300px;
+                height: 40px;
+               border: 1px solid black;
+              
+                margin-bottom: 20px;
+                background-color: whitesmoke;
+            }
+            .login-button{
+
+                width:320px;
+                height: 40px;
+                background-color:purple;
+               
+                margin-bottom: 20px;
+                color: white;
+                font-size: 20px;
+                border: 1px solid black;
+            }
+        </style>
+    </head>
+    <body>
+        
+     <div id="login-box">
+        <div id="login-container">
+            <h1 style="font-family: monospace">User Login</h1>
+        <!--<label for="username" style="font-size:25px">Username:</label>-->
+        <input type="text" class="login-input" id="username" placeholder="Enter Username"/> 
+
+       <!--<label for="password" style="font-size:25px">Password:</label>-->
+        <input type="text" class="login-input" id="password" placeholder="Enter Password"/>
+        <button class="login-button" onclick="login()" >Login</button>
+
+           <h2><a href="register.html">Register</a></h2>
+
+         </div>
+        </div>
+        <script>
+           async function login()
+            {
+                var user=document.getElementById("username").value;
+                var pwd=document.getElementById("password").value;
+                 
+               
+          let res=await fetch("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBKAAa4BLT91j343UmTmOA1jekL4tMIexE",
+          {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                email:user,
+                password:pwd,
+                returnSecureToken:true
+              })
+            }
+          )
+          const response=await res.json();
+        if(!res.ok || res.error)
+        alert("Invalid Uername/Password");
+        else
+        {
+            document.getElementById("username").value="";
+            document.getElementById("password").value="";
+        window.location="profile.html";
+        }
+        }
+        window.history.forward();
+        window.history.forward();
+            </script>
+    </body>
+</html>
